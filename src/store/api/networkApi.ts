@@ -1,26 +1,40 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
-// Custom ping implementation wrapped in queryFn
-const customPingBaseQuery = async ({ url }: { url: string }): Promise<{ data: number } | { error: FetchBaseQueryError }> => {
-  const start = performance.now();
+const customPingBaseQuery = async ({
+  url,
+}: {
+  url: string;
+}): Promise<{ data: number } | { error: FetchBaseQueryError }> => {
   try {
-    const targetUrl = new URL(url);
-    targetUrl.searchParams.append('_t', Date.now().toString());
-    
-    const controller = new AbortController();
-    const id = setTimeout(() => controller.abort(), 2000);
-
-    await fetch(targetUrl.toString(), { 
-      mode: 'no-cors', 
+    const apiUrl = `/api/radar/latency?target=${encodeURIComponent(url)}`;
+    const res = await fetch(apiUrl, {
       cache: 'no-store',
-      signal: controller.signal
     });
-    
-    clearTimeout(id);
-    const end = performance.now();
-    return { data: Math.round(end - start) };
-  } catch (e) {
+
+    if (!res.ok) {
+      return {
+        error: {
+          status: res.status,
+          data: 'Latency API request failed',
+        },
+      };
+    }
+
+    const json: any = await res.json();
+    const latency = typeof json?.latencyMs === 'number' ? json.latencyMs : -1;
+
+    if (latency < 0) {
+      return {
+        error: {
+          status: 'CUSTOM_ERROR',
+          error: 'Latency value missing or invalid',
+        },
+      };
+    }
+
+    return { data: Math.round(latency) };
+  } catch {
     return { error: { status: 'CUSTOM_ERROR', error: 'Ping failed' } };
   }
 };

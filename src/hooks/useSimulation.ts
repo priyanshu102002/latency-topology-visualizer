@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   tickSimulation,
@@ -11,6 +11,11 @@ export const useSimulation = () => {
   const dispatch = useDispatch();
   const nodes = useSelector((state: RootState) => state.topology.nodes);
   const [triggerPing] = useLazyPingNodeQuery();
+  const nodesRef = useRef(nodes);
+
+  useEffect(() => {
+    nodesRef.current = nodes;
+  }, [nodes]);
 
   // 1. Mesh Simulation Loop
   useEffect(() => {
@@ -24,7 +29,8 @@ export const useSimulation = () => {
   useEffect(() => {
     const pingAllNodes = async () => {
       // Pick 2 random nodes to ping to avoid network flood
-      const nodesToPing = [...nodes]
+      const nodesSnapshot = nodesRef.current || [];
+      const nodesToPing = [...nodesSnapshot]
         .sort(() => 0.5 - Math.random())
         .slice(0, 3);
 
@@ -46,5 +52,5 @@ export const useSimulation = () => {
     pingAllNodes();
 
     return () => clearInterval(pingInterval);
-  }, [dispatch, triggerPing, nodes]); // Dependency on nodes ensures we have latest list
+  }, [dispatch, triggerPing]);
 };
