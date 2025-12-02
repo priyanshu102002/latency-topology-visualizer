@@ -17,7 +17,6 @@ export const useSimulation = () => {
     nodesRef.current = nodes;
   }, [nodes]);
 
-  // 1. Mesh Simulation Loop
   useEffect(() => {
     const interval = setInterval(() => {
       dispatch(tickSimulation());
@@ -25,10 +24,8 @@ export const useSimulation = () => {
     return () => clearInterval(interval);
   }, [dispatch]);
 
-  // 2. Real-time Ping Loop
   useEffect(() => {
     const pingAllNodes = async () => {
-      // Pick 2 random nodes to ping to avoid network flood
       const nodesSnapshot = nodesRef.current || [];
       const nodesToPing = [...nodesSnapshot]
         .sort(() => 0.5 - Math.random())
@@ -37,12 +34,10 @@ export const useSimulation = () => {
       nodesToPing.forEach(async (node) => {
         if (node.endpoint) {
           try {
-            // Trigger RTK Query
             const result = await triggerPing(node.endpoint).unwrap();
             dispatch(updateNodeLatency({ nodeId: node.id, latency: result }));
           } catch (e) {
-            // Error handling handled by slice status logic if needed,
-            // or we could dispatch an error status here.
+            
           }
         }
       });

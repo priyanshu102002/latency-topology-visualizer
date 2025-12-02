@@ -4,7 +4,7 @@ import { RootState } from '../../store';
 import { updateFilter, toggleProvider, setTheme } from '../../store/slices/uiSlice';
 import { useGetBtcPriceQuery } from '../../store/api/marketApi';
 import { CloudProvider } from '../../types';
-import { PROVIDER_COLORS } from '../../constants';
+import { PROVIDER_COLORS } from '@/data/constants';
 import { Layers, Server, Wifi, Filter, Search, TrendingUp, Sun, Moon } from 'lucide-react';
 import { Card, CardContent } from '../ui/card';
 import { Switch } from '../ui/switch';
@@ -29,9 +29,8 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ className }) => {
   };
 
   return (
-    <div className={`bg-slate-900/90 dark:bg-slate-900/90 bg-white/90 backdrop-blur-lg border-r border-slate-700 dark:border-slate-700 border-slate-200 text-slate-900 dark:text-white p-6 flex flex-col gap-6 overflow-y-auto w-80 h-full ${className}`}>
+    <div className={`bg-slate-900/90 dark:bg-slate-900/90 backdrop-blur-lg border-r border-slate-700 dark:border-slate-700 text-slate-900 dark:text-white p-6 flex flex-col gap-6 overflow-y-auto w-80 h-full ${className}`}>
       
-      {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="bg-blue-600 p-2 rounded-lg">
@@ -47,7 +46,6 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ className }) => {
         </Button>
       </div>
 
-      {/* Market Data */}
       <Card className="bg-slate-100 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700/50">
         <CardContent className="p-3">
           <div className="flex items-center justify-between mb-1">
@@ -65,7 +63,6 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ className }) => {
         </CardContent>
       </Card>
 
-      {/* Search */}
       <div className="relative">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
         <Input 
@@ -76,7 +73,6 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ className }) => {
         />
       </div>
 
-      {/* Layers Section */}
       <div>
         <h3 className="flex items-center gap-2 text-sm font-semibold text-slate-500 dark:text-slate-400 mb-3">
           <Layers size={16} /> LAYERS
@@ -99,7 +95,6 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ className }) => {
         </div>
       </div>
 
-      {/* Providers Section */}
       <div>
         <h3 className="flex items-center gap-2 text-sm font-semibold text-slate-500 dark:text-slate-400 mb-3">
           <Server size={16} /> PROVIDERS
@@ -126,7 +121,6 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ className }) => {
         </div>
       </div>
 
-      {/* Latency Threshold */}
       <div>
         <h3 className="flex items-center gap-2 text-sm font-semibold text-slate-500 dark:text-slate-400 mb-3">
           <Filter size={16} /> LATENCY FILTER

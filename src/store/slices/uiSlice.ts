@@ -12,7 +12,7 @@ interface UiState {
 const initialState: UiState = {
   isSidebarOpen: true,
   selectedNodeId: null,
-  theme: 'dark', // Default to dark for cyberpunk aesthetic
+  theme: 'dark',
   filters: {
     showExchanges: true,
     showRegions: true,

@@ -3,7 +3,7 @@
 import React, { useMemo, useState, useCallback } from 'react';
 import { GeoNode, LatencyLink } from '../types';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { Activity, MapPin, Clock, Share2, Globe, Laptop } from 'lucide-react';
+import { MapPin, Clock, Share2, Globe, Laptop } from 'lucide-react';
 
 interface StatsPanelProps {
   selectedNode: GeoNode | null;
@@ -61,13 +61,9 @@ const StatsPanel: React.FC<StatsPanelProps> = ({ selectedNode, links, className,
     return Math.round(sum / primaryLink.history.length);
   }, [primaryLink]);
 
-  // Live values
   const currentLinkLatency = primaryLink ? Math.round(primaryLink.latencyMs) : 0;
   const clientLatency = selectedNode?.clientLatency;
 
-  // -----------------------------------------
-  // 🔥 Render
-  // -----------------------------------------
   if (!selectedNode) {
     return (
       <div className={`bg-slate-900/90 backdrop-blur-lg border-l border-slate-700 text-white p-6 w-80 flex flex-col items-center justify-center text-center ${className}`}>
@@ -85,7 +81,6 @@ const StatsPanel: React.FC<StatsPanelProps> = ({ selectedNode, links, className,
   return (
     <div className={`bg-slate-900/90 backdrop-blur-lg border-l border-slate-700 text-white flex flex-col w-96 h-full overflow-y-auto ${className}`}>
 
-      {/* Header */}
       <div className="p-6 border-b border-slate-800 relative">
         <button 
           onClick={onClose}
@@ -112,7 +107,6 @@ const StatsPanel: React.FC<StatsPanelProps> = ({ selectedNode, links, className,
         </div>
       </div>
 
-      {/* Client → Node Latency */}
       {clientLatency !== undefined && (
         <div className="px-6 pt-6 pb-2">
           <div className="bg-slate-800/80 p-3 rounded-lg border border-blue-500/30">
@@ -140,7 +134,6 @@ const StatsPanel: React.FC<StatsPanelProps> = ({ selectedNode, links, className,
         </div>
       )}
 
-      {/* Metrics */}
       <div className="grid grid-cols-2 gap-4 p-6 border-b border-slate-800">
         <div className="bg-slate-800/50 p-3 rounded-lg border border-slate-700">
           <div className="flex items-center gap-2 text-slate-400 text-xs mb-1">
@@ -167,7 +160,6 @@ const StatsPanel: React.FC<StatsPanelProps> = ({ selectedNode, links, className,
         </div>
       </div>
 
-      {/* Chart */}
       <div className="p-6 flex-1 min-h-[300px]">
         <div className="flex items-center justify-between mb-4">
           <h3 className="font-semibold text-sm">Latency History</h3>
@@ -214,7 +206,6 @@ const StatsPanel: React.FC<StatsPanelProps> = ({ selectedNode, links, className,
           )}
         </div>
 
-        {/* Connections */}
         <div className="mt-6">
           <h3 className="font-semibold text-sm mb-3">Active Connections</h3>
 
@@ -244,7 +235,6 @@ const StatsPanel: React.FC<StatsPanelProps> = ({ selectedNode, links, className,
         </div>
       </div>
 
-      {/* Footer */}
       <div className="p-4 border-t border-slate-800">
         <button className="w-full py-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-medium rounded-lg flex items-center justify-center gap-2">
           <Share2 size={16} />

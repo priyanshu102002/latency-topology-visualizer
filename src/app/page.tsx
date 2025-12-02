@@ -12,15 +12,12 @@ import StatsPanel from '@/components/StatsPanel';
 const App: React.FC = () => {
   const dispatch = useDispatch();
   
-  // Use Custom Hook for Simulation Logic
   useSimulation();
 
-  // Selectors
   const { isSidebarOpen, selectedNodeId, theme } = useSelector((state: RootState) => state.ui);
   const { nodes, links } = useSelector((state: RootState) => state.topology);
   const selectedNode = selectedNodeId ? nodes.find((node) => node.id === selectedNodeId) ?? null : null;
 
-  // Apply theme class to HTML element
   useEffect(() => {
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');
@@ -32,20 +29,16 @@ const App: React.FC = () => {
   return (
     <div className="relative w-screen h-screen bg-white dark:bg-black overflow-hidden font-sans transition-colors duration-300">
       
-      {/* 3D Background */}
       <div className="absolute inset-0 z-0">
         <GlobeWrapper />
       </div>
 
-      {/* UI Layer */}
       <div className="absolute inset-0 z-10 pointer-events-none flex">
         
-        {/* Left Sidebar */}
         <div className={`pointer-events-auto h-full transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
            <ControlPanel />
         </div>
         
-        {/* Toggle Sidebar Button */}
         <button 
           onClick={() => dispatch(toggleSidebar())}
           className="pointer-events-auto absolute top-4 left-4 z-50 p-2 bg-slate-200 dark:bg-slate-800 text-slate-900 dark:text-white rounded-md hover:bg-slate-300 dark:hover:bg-slate-700 md:hidden shadow-lg"
@@ -53,10 +46,8 @@ const App: React.FC = () => {
           {isSidebarOpen ? 'Close' : 'Menu'}
         </button>
 
-        {/* Main Content Area */}
         <div className="flex-1 relative"></div>
 
-        {/* Right Sidebar (Stats) */}
         <div className={`pointer-events-auto h-full transition-transform duration-300 ease-in-out ${selectedNodeId ? 'translate-x-0' : 'translate-x-full'} absolute right-0 md:relative md:translate-x-0`}>
            <StatsPanel
              selectedNode={selectedNode}

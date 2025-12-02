@@ -14,7 +14,7 @@ export const store = configureStore({
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      serializableCheck: false, // Disabled for large history arrays/Dates in simulation
+      serializableCheck: false,
     }).concat(marketApi.middleware, networkApi.middleware),
 });
 
