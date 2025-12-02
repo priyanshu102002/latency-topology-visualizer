@@ -9,7 +9,7 @@ import {
   toggleProvider as toggleProviderAction,
 } from "@/store/slices/uiSlice";
 import { RootState } from "@/store";
-import { Layers, Server, Wifi, Filter, Search } from "lucide-react";
+import { Layers, Server, Wifi, Filter, Search, Activity, History } from "lucide-react";
 
 interface ControlPanelProps {
   className?: string;
@@ -90,6 +90,44 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ className }) => {
               type="checkbox"
               checked={filters.showRegions}
               onChange={(e) => updateFilters({ showRegions: e.target.checked })}
+              className="accent-blue-500 h-4 w-4"
+            />
+          </label>
+        </div>
+      </div>
+
+      {/* Visualization Section */}
+      <div>
+        <h3 className="flex items-center gap-2 text-sm font-semibold text-slate-400 mb-3">
+          <Activity size={16} />
+          VISUALIZATION
+        </h3>
+        <div className="space-y-2">
+          <label className="flex items-center justify-between p-3 bg-slate-800/50 rounded-lg cursor-pointer hover:bg-slate-800 transition-colors">
+            <div className="flex items-center gap-2">
+              <Activity size={14} className="text-slate-400" />
+              <span className="text-sm">Real-time Connections</span>
+            </div>
+            <input
+              type="checkbox"
+              checked={filters.showRealTime}
+              onChange={(e) =>
+                updateFilters({ showRealTime: e.target.checked })
+              }
+              className="accent-blue-500 h-4 w-4"
+            />
+          </label>
+          <label className="flex items-center justify-between p-3 bg-slate-800/50 rounded-lg cursor-pointer hover:bg-slate-800 transition-colors">
+            <div className="flex items-center gap-2">
+              <History size={14} className="text-slate-400" />
+              <span className="text-sm">Historical Data</span>
+            </div>
+            <input
+              type="checkbox"
+              checked={filters.showHistorical}
+              onChange={(e) =>
+                updateFilters({ showHistorical: e.target.checked })
+              }
               className="accent-blue-500 h-4 w-4"
             />
           </label>

@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useMemo, useState, useCallback } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
 import { GeoNode, LatencyLink } from "../types";
 import {
   LineChart,
@@ -11,7 +13,8 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { MapPin, Clock, Share2, Globe, Laptop } from "lucide-react";
+import { MapPin, Clock, Globe, Laptop } from "lucide-react";
+import { exportLatencyReportToPDF } from "@/services/pdfExporter";
 
 interface StatsPanelProps {
   selectedNode: GeoNode | null;
@@ -26,6 +29,7 @@ const StatsPanel: React.FC<StatsPanelProps> = ({
   className,
   onClose,
 }) => {
+  const showHistorical = useSelector((state: RootState) => state.ui.filters.showHistorical);
   const [timeRange, setTimeRange] = useState("1h");
 
   const connectedLinks = useMemo(() => {
@@ -78,6 +82,26 @@ const StatsPanel: React.FC<StatsPanelProps> = ({
     ? Math.round(primaryLink.latencyMs)
     : 0;
   const clientLatency = selectedNode?.clientLatency;
+
+  const exportToPDF = useCallback(() => {
+    if (!selectedNode || !primaryLink) return;
+
+    exportLatencyReportToPDF({
+      selectedNode,
+      primaryLink,
+      connectedLinks,
+      chartData,
+      avgLatency,
+      currentLinkLatency,
+    });
+  }, [
+    selectedNode,
+    primaryLink,
+    connectedLinks,
+    chartData,
+    avgLatency,
+    currentLinkLatency,
+  ]);
 
   if (!selectedNode) {
     return (
@@ -163,7 +187,7 @@ const StatsPanel: React.FC<StatsPanelProps> = ({
         </div>
       )}
 
-      <div className="grid grid-cols-2 gap-4 p-6 border-b border-slate-800">
+      <div className="grid grid-cols-2 gap-4 pt-6 px-6 ">
         <div className="bg-slate-800/50 p-3 rounded-lg border border-slate-700">
           <div className="flex items-center gap-2 text-slate-400 text-xs mb-1">
             <Globe size={12} />
@@ -193,74 +217,100 @@ const StatsPanel: React.FC<StatsPanelProps> = ({
         </div>
       </div>
 
-      <div className="p-6 flex-1 min-h-[300px]">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="font-semibold text-sm">Latency History</h3>
+      <div className="grid grid-cols-1 p-6 border-b border-slate-800">
+        <button
+          onClick={exportToPDF}
+          className="border border-slate-700 rounded-lg p-1 cursor-pointer hover:bg-slate-700/50 transition-all duration-300"
+          title="Export Report as PDF"
+        >
+          Export Data
+        </button>
+      </div>
 
-          <select
-            value={timeRange}
-            onChange={(e) => setTimeRange(e.target.value)}
-            className="bg-slate-800 border border-slate-700 text-xs rounded px-2 py-1"
-          >
-            <option value="1h">Last Hour</option>
-            <option value="24h">24 Hours</option>
-            <option value="7d">7 Days</option>
-          </select>
+      {showHistorical && (
+        <div className="p-6 flex-1 min-h-[300px]">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="font-semibold text-sm">Latency History</h3>
+
+            <select
+              value={timeRange}
+              onChange={(e) => setTimeRange(e.target.value)}
+              className="bg-slate-800 border border-slate-700 text-xs rounded px-2 py-1"
+            >
+              <option value="1h">Last Hour</option>
+              <option value="24h">24 Hours</option>
+              <option value="7d">7 Days</option>
+            </select>
+          </div>
+
+          <div className="h-64 w-full">
+            {chartData.length > 0 ? (
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={chartData}>
+                  <CartesianGrid
+                    strokeDasharray="3 3"
+                    stroke="#334155"
+                    vertical={false}
+                  />
+                  <XAxis
+                    dataKey="time"
+                    stroke="#64748b"
+                    fontSize={10}
+                    axisLine={false}
+                    tickLine={false}
+                    minTickGap={20}
+                  />
+                  <YAxis
+                    stroke="#64748b"
+                    fontSize={10}
+                    axisLine={false}
+                    tickLine={false}
+                    unit="ms"
+                  />
+
+                  <Tooltip
+                    contentStyle={{
+                      background: "#0f172a",
+                      borderColor: "#334155",
+                      color: "#fff",
+                      fontSize: "12px",
+                    }}
+                    itemStyle={{ color: "#38bdf8" }}
+                  />
+
+                  <Line
+                    type="monotone"
+                    dataKey="latency"
+                    stroke="#38bdf8"
+                    strokeWidth={2}
+                    dot={false}
+                    activeDot={{ r: 4, fill: "#38bdf8" }}
+                    isAnimationActive={false}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            ) : (
+              <div className="h-full flex items-center justify-center text-slate-500 text-sm">
+                No active link data
+              </div>
+            )}
+          </div>
         </div>
+      )}
 
-        <div className="h-64 w-full">
-          {chartData.length > 0 ? (
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={chartData}>
-                <CartesianGrid
-                  strokeDasharray="3 3"
-                  stroke="#334155"
-                  vertical={false}
-                />
-                <XAxis
-                  dataKey="time"
-                  stroke="#64748b"
-                  fontSize={10}
-                  axisLine={false}
-                  tickLine={false}
-                  minTickGap={20}
-                />
-                <YAxis
-                  stroke="#64748b"
-                  fontSize={10}
-                  axisLine={false}
-                  tickLine={false}
-                  unit="ms"
-                />
-
-                <Tooltip
-                  contentStyle={{
-                    background: "#0f172a",
-                    borderColor: "#334155",
-                    color: "#fff",
-                    fontSize: "12px",
-                  }}
-                  itemStyle={{ color: "#38bdf8" }}
-                />
-
-                <Line
-                  type="monotone"
-                  dataKey="latency"
-                  stroke="#38bdf8"
-                  strokeWidth={2}
-                  dot={false}
-                  activeDot={{ r: 4, fill: "#38bdf8" }}
-                  isAnimationActive={false}
-                />
-              </LineChart>
-            </ResponsiveContainer>
-          ) : (
-            <div className="h-full flex items-center justify-center text-slate-500 text-sm">
-              No active link data
-            </div>
-          )}
+      {!showHistorical && (
+        <div className="p-6 flex-1 min-h-[300px] flex items-center justify-center">
+          <div className="text-center text-slate-500">
+            <Clock size={48} className="mx-auto mb-4 opacity-50" />
+            <p className="text-sm font-medium mb-2">Historical Data Disabled</p>
+            <p className="text-xs text-slate-400">
+              Enable "Historical Data" in the control panel to view latency history charts
+            </p>
+          </div>
         </div>
+      )}
 
+      <div className="p-6">
         <div className="mt-6">
           <h3 className="font-semibold text-sm mb-3">Active Connections</h3>
 

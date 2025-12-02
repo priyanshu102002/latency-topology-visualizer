@@ -16,6 +16,8 @@ const initialState: UiState = {
   filters: {
     showExchanges: true,
     showRegions: true,
+    showRealTime: true,
+    showHistorical: true,
     providers: {
       [CloudProvider.AWS]: true,
       [CloudProvider.GCP]: true,

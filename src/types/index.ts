@@ -48,6 +48,8 @@ export interface GeoNode {
 export interface FilterState {
   showExchanges: boolean;
   showRegions: boolean;
+  showRealTime: boolean;
+  showHistorical: boolean;
   providers: Record<CloudProvider, boolean>;
   minLatency: number;
   maxLatency: number;

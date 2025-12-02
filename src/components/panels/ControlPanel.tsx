@@ -4,7 +4,7 @@ import { RootState } from '../../store';
 import { updateFilter, toggleProvider, setTheme } from '../../store/slices/uiSlice';
 import { CloudProvider } from '../../types';
 import { PROVIDER_COLORS } from '@/data/constants';
-import { Layers, Server, Wifi, Filter, Search, Sun, Moon } from 'lucide-react';
+import { Layers, Server, Wifi, Filter, Search, Sun, Moon, Activity, History } from 'lucide-react';
 import { Card, CardContent } from '../ui/card';
 import { Switch } from '../ui/switch';
 import { Slider } from '../ui/slider';
@@ -70,6 +70,34 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ className }) => {
             <Switch 
               checked={filters.showRegions} 
               onCheckedChange={(c) => dispatch(updateFilter({ showRegions: c }))} 
+            />
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 className="flex items-center gap-2 text-sm font-semibold text-slate-500 dark:text-slate-400 mb-3">
+          <Activity size={16} /> VISUALIZATION
+        </h3>
+        <div className="space-y-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Activity size={14} className="text-slate-400" />
+              <span className="text-sm">Real-time Connections</span>
+            </div>
+            <Switch 
+              checked={filters.showRealTime} 
+              onCheckedChange={(c) => dispatch(updateFilter({ showRealTime: c }))} 
+            />
+          </div>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <History size={14} className="text-slate-400" />
+              <span className="text-sm">Historical Data</span>
+            </div>
+            <Switch 
+              checked={filters.showHistorical} 
+              onCheckedChange={(c) => dispatch(updateFilter({ showHistorical: c }))} 
             />
           </div>
         </div>

@@ -88,6 +88,7 @@ const GlobeWrapper: React.FC = () => {
       if (!visibleIds.has(link.source) || !visibleIds.has(link.target))
         return false;
       if (link.latencyMs > filters.maxLatency) return false;
+      if (!filters.showRealTime) return false;
       return true;
     });
 
