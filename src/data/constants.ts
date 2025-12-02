@@ -1,7 +1,6 @@
 import { CloudProvider, GeoNode, NodeType } from '@/types';
 
 export const NODES: GeoNode[] = [
-  // Major Crypto Exchanges
   {
     id: 'binance-jp',
     name: 'Binance',
@@ -57,7 +56,6 @@ export const NODES: GeoNode[] = [
     status: 'operational',
     endpoint: 'https://api.kraken.com/0/public/Time'
   },
-  // Cloud Regions (Interconnects)
   {
     id: 'aws-us-east-1',
     name: 'AWS N. Virginia',

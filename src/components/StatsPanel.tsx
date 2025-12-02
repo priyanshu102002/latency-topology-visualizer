@@ -30,6 +30,7 @@ const StatsPanel: React.FC<StatsPanelProps> = ({
   onClose,
 }) => {
   const showHistorical = useSelector((state: RootState) => state.ui.filters.showHistorical);
+  const theme = useSelector((state: RootState) => state.ui.theme);
   const [timeRange, setTimeRange] = useState("1h");
 
   const connectedLinks = useMemo(() => {
@@ -106,13 +107,13 @@ const StatsPanel: React.FC<StatsPanelProps> = ({
   if (!selectedNode) {
     return (
       <div
-        className={`bg-slate-900/90 backdrop-blur-lg border-l border-slate-700 text-white p-6 w-80 flex flex-col items-center justify-center text-center ${className}`}
+        className={`bg-white/90 dark:bg-slate-900/90 backdrop-blur-lg border-l border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white p-6 w-80 flex flex-col items-center justify-center text-center ${className}`}
       >
-        <div className="bg-slate-800 p-4 rounded-full mb-4">
-          <MapPin size={32} className="text-slate-500" />
+        <div className="bg-slate-100 dark:bg-slate-800 p-4 rounded-full mb-4">
+          <MapPin size={32} className="text-slate-400 dark:text-slate-500" />
         </div>
         <h2 className="text-lg font-semibold mb-2">Select a Node</h2>
-        <p className="text-sm text-slate-400">
+        <p className="text-sm text-slate-600 dark:text-slate-400">
           Click any exchange or region marker on the globe to view real-time
           latency statistics.
         </p>
@@ -122,12 +123,12 @@ const StatsPanel: React.FC<StatsPanelProps> = ({
 
   return (
     <div
-      className={`bg-slate-900/90 backdrop-blur-lg border-l border-slate-700 text-white flex flex-col w-96 h-full overflow-y-auto ${className}`}
+      className={`bg-white/90 dark:bg-slate-900/90 backdrop-blur-lg border-l border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white flex flex-col w-96 h-full overflow-y-auto ${className}`}
     >
-      <div className="p-6 border-b border-slate-800 relative">
+      <div className="p-6 border-b border-slate-200 dark:border-slate-800 relative">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors text-xl"
+          className="absolute top-4 right-4 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors text-xl"
         >
           &times;
         </button>
@@ -138,18 +139,18 @@ const StatsPanel: React.FC<StatsPanelProps> = ({
           <span
             className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
               selectedNode.status === "operational"
-                ? "bg-emerald-500/20 text-emerald-400"
-                : "bg-red-500/20 text-red-400"
+                ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400"
+                : "bg-red-500/20 text-red-600 dark:text-red-400"
             }`}
           >
             {selectedNode.status}
           </span>
-          <span className="text-xs text-slate-400">
+          <span className="text-xs text-slate-600 dark:text-slate-400">
             {selectedNode.provider}
           </span>
         </div>
 
-        <div className="text-xs text-slate-500 font-mono mt-2 flex items-center gap-1">
+        <div className="text-xs text-slate-500 dark:text-slate-500 font-mono mt-2 flex items-center gap-1">
           <MapPin size={12} />
           {selectedNode.regionCode} • {selectedNode.lat.toFixed(2)},{" "}
           {selectedNode.lng.toFixed(2)}
@@ -158,9 +159,9 @@ const StatsPanel: React.FC<StatsPanelProps> = ({
 
       {clientLatency !== undefined && (
         <div className="px-6 pt-6 pb-2">
-          <div className="bg-slate-800/80 p-3 rounded-lg border border-blue-500/30">
+          <div className="bg-slate-100 dark:bg-slate-800/80 p-3 rounded-lg border border-blue-500/30">
             <div className="flex items-center justify-between mb-2">
-              <div className="flex items-center gap-2 text-blue-400 text-xs font-bold uppercase">
+              <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400 text-xs font-bold uppercase">
                 <Laptop size={12} /> Client → Node
               </div>
               <span className="relative flex h-2 w-2">
@@ -172,15 +173,15 @@ const StatsPanel: React.FC<StatsPanelProps> = ({
             <div className="flex items-baseline gap-2">
               <span
                 className={`text-3xl font-mono font-bold ${
-                  clientLatency > 200 ? "text-yellow-400" : "text-white"
+                  clientLatency > 200 ? "text-yellow-600 dark:text-yellow-400" : "text-slate-900 dark:text-white"
                 }`}
               >
                 {clientLatency}
               </span>
-              <span className="text-slate-400 text-sm">ms</span>
+              <span className="text-slate-600 dark:text-slate-400 text-sm">ms</span>
             </div>
 
-            <div className="text-[10px] text-slate-500 mt-1">
+            <div className="text-[10px] text-slate-500 dark:text-slate-500 mt-1">
               Real-time RTT from your browser
             </div>
           </div>
@@ -188,39 +189,39 @@ const StatsPanel: React.FC<StatsPanelProps> = ({
       )}
 
       <div className="grid grid-cols-2 gap-4 pt-6 px-6 ">
-        <div className="bg-slate-800/50 p-3 rounded-lg border border-slate-700">
-          <div className="flex items-center gap-2 text-slate-400 text-xs mb-1">
+        <div className="bg-slate-100 dark:bg-slate-800/50 p-3 rounded-lg border border-slate-300 dark:border-slate-700">
+          <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400 text-xs mb-1">
             <Globe size={12} />
             Mesh Latency
           </div>
           <div
             className={`text-2xl font-mono font-bold ${
               currentLinkLatency > 150
-                ? "text-red-400"
+                ? "text-red-600 dark:text-red-400"
                 : currentLinkLatency > 100
-                ? "text-yellow-400"
-                : "text-emerald-400"
+                ? "text-yellow-600 dark:text-yellow-400"
+                : "text-emerald-600 dark:text-emerald-400"
             }`}
           >
             {currentLinkLatency}ms
           </div>
         </div>
 
-        <div className="bg-slate-800/50 p-3 rounded-lg border border-slate-700">
-          <div className="flex items-center gap-2 text-slate-400 text-xs mb-1">
+        <div className="bg-slate-100 dark:bg-slate-800/50 p-3 rounded-lg border border-slate-300 dark:border-slate-700">
+          <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400 text-xs mb-1">
             <Clock size={12} />
             Avg (Last 1h)
           </div>
-          <div className="text-2xl font-mono font-bold text-blue-400">
+          <div className="text-2xl font-mono font-bold text-blue-600 dark:text-blue-400">
             {avgLatency}ms
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 p-6 border-b border-slate-800">
+      <div className="grid grid-cols-1 p-6 border-b border-slate-200 dark:border-slate-800">
         <button
           onClick={exportToPDF}
-          className="border border-slate-700 rounded-lg p-1 cursor-pointer hover:bg-slate-700/50 transition-all duration-300"
+          className="border border-slate-300 dark:border-slate-700 rounded-lg p-1 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-all duration-300 text-slate-900 dark:text-white"
           title="Export Report as PDF"
         >
           Export Data
@@ -235,7 +236,7 @@ const StatsPanel: React.FC<StatsPanelProps> = ({
             <select
               value={timeRange}
               onChange={(e) => setTimeRange(e.target.value)}
-              className="bg-slate-800 border border-slate-700 text-xs rounded px-2 py-1"
+              className="bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white text-xs rounded px-2 py-1"
             >
               <option value="1h">Last Hour</option>
               <option value="24h">24 Hours</option>
@@ -249,19 +250,19 @@ const StatsPanel: React.FC<StatsPanelProps> = ({
                 <LineChart data={chartData}>
                   <CartesianGrid
                     strokeDasharray="3 3"
-                    stroke="#334155"
+                    stroke={theme === 'dark' ? "#334155" : "#e2e8f0"}
                     vertical={false}
                   />
                   <XAxis
                     dataKey="time"
-                    stroke="#64748b"
+                    stroke={theme === 'dark' ? "#64748b" : "#94a3b8"}
                     fontSize={10}
                     axisLine={false}
                     tickLine={false}
                     minTickGap={20}
                   />
                   <YAxis
-                    stroke="#64748b"
+                    stroke={theme === 'dark' ? "#64748b" : "#94a3b8"}
                     fontSize={10}
                     axisLine={false}
                     tickLine={false}
@@ -270,27 +271,27 @@ const StatsPanel: React.FC<StatsPanelProps> = ({
 
                   <Tooltip
                     contentStyle={{
-                      background: "#0f172a",
-                      borderColor: "#334155",
-                      color: "#fff",
+                      background: theme === 'dark' ? "#1e293b" : "rgb(255 255 255 / 0.95)",
+                      borderColor: theme === 'dark' ? "#334155" : "rgb(203 213 225)",
+                      color: theme === 'dark' ? "#fff" : "rgb(15 23 42)",
                       fontSize: "12px",
                     }}
-                    itemStyle={{ color: "#38bdf8" }}
+                    itemStyle={{ color: "#3b82f6" }}
                   />
 
                   <Line
                     type="monotone"
                     dataKey="latency"
-                    stroke="#38bdf8"
+                    stroke="#3b82f6"
                     strokeWidth={2}
                     dot={false}
-                    activeDot={{ r: 4, fill: "#38bdf8" }}
+                    activeDot={{ r: 4, fill: "#3b82f6" }}
                     isAnimationActive={false}
                   />
                 </LineChart>
               </ResponsiveContainer>
             ) : (
-              <div className="h-full flex items-center justify-center text-slate-500 text-sm">
+              <div className="h-full flex items-center justify-center text-slate-500 dark:text-slate-500 text-sm">
                 No active link data
               </div>
             )}
@@ -300,10 +301,10 @@ const StatsPanel: React.FC<StatsPanelProps> = ({
 
       {!showHistorical && (
         <div className="p-6 flex-1 min-h-[300px] flex items-center justify-center">
-          <div className="text-center text-slate-500">
+          <div className="text-center text-slate-500 dark:text-slate-500">
             <Clock size={48} className="mx-auto mb-4 opacity-50" />
             <p className="text-sm font-medium mb-2">Historical Data Disabled</p>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-slate-600 dark:text-slate-400">
               Enable "Historical Data" in the control panel to view latency history charts
             </p>
           </div>
@@ -318,15 +319,15 @@ const StatsPanel: React.FC<StatsPanelProps> = ({
             {connectedLinks.map((link) => (
               <div
                 key={link.id}
-                className="flex items-center justify-between p-3 bg-slate-800/30 rounded border border-slate-700/50 hover:bg-slate-800/50 cursor-pointer"
+                className="flex items-center justify-between p-3 bg-slate-100 dark:bg-slate-800/30 rounded border border-slate-300 dark:border-slate-700/50 hover:bg-slate-200 dark:hover:bg-slate-800/50 cursor-pointer"
               >
                 <div className="flex flex-col">
-                  <span className="text-xs font-medium text-slate-300">
+                  <span className="text-xs font-medium text-slate-700 dark:text-slate-300">
                     {link.source === selectedNode.id
                       ? link.target
                       : link.source}
                   </span>
-                  <span className="text-[10px] text-slate-500">
+                  <span className="text-[10px] text-slate-500 dark:text-slate-500">
                     Direct Route
                   </span>
                 </div>
@@ -334,10 +335,10 @@ const StatsPanel: React.FC<StatsPanelProps> = ({
                 <span
                   className={`text-sm font-mono font-bold ${
                     link.latencyMs > 150
-                      ? "text-red-400"
+                      ? "text-red-600 dark:text-red-400"
                       : link.latencyMs > 100
-                      ? "text-yellow-400"
-                      : "text-emerald-400"
+                      ? "text-yellow-600 dark:text-yellow-400"
+                      : "text-emerald-600 dark:text-emerald-400"
                   }`}
                 >
                   {Math.round(link.latencyMs)}ms

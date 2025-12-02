@@ -26,7 +26,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ className }) => {
   };
 
   return (
-    <div className={`bg-slate-900/90 dark:bg-slate-900/90 backdrop-blur-lg border-r border-slate-700 dark:border-slate-700 text-slate-900 dark:text-white p-6 flex flex-col gap-6 overflow-y-auto w-80 h-full ${className}`}>
+    <div className={`bg-white/90 dark:bg-slate-900/90 backdrop-blur-lg border-r border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white p-6 flex flex-col gap-6 overflow-y-auto w-80 h-full ${className}`}>
       
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">

@@ -36,10 +36,9 @@ const GlobeViewer: React.FC<GlobeViewerProps> = React.memo(({ nodes, links, onNo
   }, []);
 
   const arcColor = useCallback((link: any) => {
-    // Vivid Traffic Light Colors
-    if (link.status === 'critical') return ['#FF0000', '#8B0000']; // Red to Dark Red
-    if (link.status === 'moderate') return ['#FFD700', '#B8860B']; // Gold to Dark Goldenrod
-    return ['#00FF00', '#006400']; // Lime to Dark Green
+    if (link.status === 'critical') return ['#FF0000', '#8B0000'];
+    if (link.status === 'moderate') return ['#FFD700', '#B8860B'];
+    return ['#00FF00', '#006400'];
   }, []);
 
   const getNodeRadius = useCallback((node: any) => {
@@ -63,8 +62,6 @@ const GlobeViewer: React.FC<GlobeViewerProps> = React.memo(({ nodes, links, onNo
         height={height}
         globeImageUrl={GLOBE_IMAGE_URL}
         backgroundImageUrl={BACKGROUND_IMAGE_URL}
-        
-        // --- Points ---
         pointsData={nodes}
         pointLat="lat"
         pointLng="lng"
@@ -90,17 +87,16 @@ const GlobeViewer: React.FC<GlobeViewerProps> = React.memo(({ nodes, links, onNo
         labelColor={getLabelColor}
         labelResolution={2}
         labelIncludeDot={true}
-        
         ringsData={ringsData}
         ringColor={getRingColor as any}
         ringMaxRadius={4}
-        ringPropagationSpeed={2.5}
+        ringPropagationSpeed={1}
         ringRepeatPeriod={1000}
       />
       
       {hoveredNode && (
         <div 
-          className="absolute pointer-events-none bg-slate-900/90 backdrop-blur-md border border-slate-700 p-2 rounded text-xs text-white z-50 shadow-xl"
+          className="absolute pointer-events-none bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-slate-200 dark:border-slate-700 p-2 rounded text-xs text-slate-900 dark:text-white z-50 shadow-xl"
           style={{ 
             top: '50%', 
             left: '50%', 
@@ -108,12 +104,12 @@ const GlobeViewer: React.FC<GlobeViewerProps> = React.memo(({ nodes, links, onNo
             pointerEvents: 'none'
           }}
         >
-          <p className="font-bold text-emerald-400 text-sm mb-1">{hoveredNode.name}</p>
-          <div className="space-y-0.5 text-slate-300">
-            <p className="flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-slate-500"></span> {hoveredNode.provider}</p>
-            <p className="flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-slate-500"></span> {hoveredNode.regionCode}</p>
+          <p className="font-bold text-emerald-600 dark:text-emerald-400 text-sm mb-1">{hoveredNode.name}</p>
+          <div className="space-y-0.5 text-slate-700 dark:text-slate-300">
+            <p className="flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-500"></span> {hoveredNode.provider}</p>
+            <p className="flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-500"></span> {hoveredNode.regionCode}</p>
             {hoveredNode.clientLatency && (
-              <p className="flex items-center gap-1 font-mono text-blue-300 border-t border-slate-700 pt-1 mt-1">
+              <p className="flex items-center gap-1 font-mono text-blue-600 dark:text-blue-300 border-t border-slate-300 dark:border-slate-700 pt-1 mt-1">
                  Ping: {hoveredNode.clientLatency}ms
               </p>
             )}
