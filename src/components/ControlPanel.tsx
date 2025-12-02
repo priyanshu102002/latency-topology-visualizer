@@ -9,8 +9,7 @@ import {
   toggleProvider as toggleProviderAction,
 } from "@/store/slices/uiSlice";
 import { RootState } from "@/store";
-import { useGetBtcPriceQuery } from "@/store/api/marketApi";
-import { Layers, Server, Wifi, Filter, Search, TrendingUp } from "lucide-react";
+import { Layers, Server, Wifi, Filter, Search } from "lucide-react";
 
 interface ControlPanelProps {
   className?: string;
@@ -19,9 +18,6 @@ interface ControlPanelProps {
 const ControlPanel: React.FC<ControlPanelProps> = ({ className }) => {
   const dispatch = useDispatch();
   const filters = useSelector((state: RootState) => state.ui.filters);
-  const { data: btcPrice, isFetching } = useGetBtcPriceQuery();
-
-  const priceDisplay = btcPrice ?? (isFetching ? "Loading..." : "Unavailable");
 
   const toggleProvider = useCallback(
     (provider: CloudProvider) => {
@@ -52,22 +48,6 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ className }) => {
           <span className="text-xs text-slate-400 uppercase tracking-widest">
             Visualizer
           </span>
-        </div>
-      </div>
-
-      {/* Market Data */}
-      <div className="bg-slate-800/50 p-3 rounded-lg border border-slate-700/50">
-        <div className="flex items-center justify-between mb-1">
-          <span className="text-xs text-slate-400 flex items-center gap-1">
-            <TrendingUp size={12} /> BTC/USDT
-          </span>
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-          </span>
-        </div>
-        <div className="text-lg font-mono font-bold text-white">
-          {priceDisplay}
         </div>
       </div>
 

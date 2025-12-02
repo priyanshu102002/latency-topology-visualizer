@@ -2,10 +2,9 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store';
 import { updateFilter, toggleProvider, setTheme } from '../../store/slices/uiSlice';
-import { useGetBtcPriceQuery } from '../../store/api/marketApi';
 import { CloudProvider } from '../../types';
 import { PROVIDER_COLORS } from '@/data/constants';
-import { Layers, Server, Wifi, Filter, Search, TrendingUp, Sun, Moon } from 'lucide-react';
+import { Layers, Server, Wifi, Filter, Search, Sun, Moon } from 'lucide-react';
 import { Card, CardContent } from '../ui/card';
 import { Switch } from '../ui/switch';
 import { Slider } from '../ui/slider';
@@ -21,8 +20,6 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ className }) => {
   const dispatch = useDispatch();
   const filters = useSelector((state: RootState) => state.ui.filters);
   const theme = useSelector((state: RootState) => state.ui.theme);
-  
-  const { data: btcPrice, isLoading: isPriceLoading } = useGetBtcPriceQuery(undefined, { pollingInterval: 10000 });
 
   const handleToggleTheme = () => {
     dispatch(setTheme(theme === 'dark' ? 'light' : 'dark'));
@@ -45,23 +42,6 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ className }) => {
           {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
         </Button>
       </div>
-
-      <Card className="bg-slate-100 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700/50">
-        <CardContent className="p-3">
-          <div className="flex items-center justify-between mb-1">
-            <span className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1">
-              <TrendingUp size={12} /> BTC/USDT
-            </span>
-            <span className="relative flex h-2 w-2">
-               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-               <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-            </span>
-          </div>
-          <div className="text-lg font-mono font-bold text-slate-900 dark:text-white">
-            {isPriceLoading ? "Loading..." : btcPrice}
-          </div>
-        </CardContent>
-      </Card>
 
       <div className="relative">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
