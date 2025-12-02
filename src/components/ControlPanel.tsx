@@ -39,7 +39,7 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ className }) => {
 
   return (
     <div
-      className={`bg-slate-900/90 backdrop-blur-lg border-r border-slate-700 text-white p-6 flex flex-col gap-6 overflow-y-auto w-80 ${className}`}
+      className={`bg-slate-900/90 backdrop-blur-lg border-r border-slate-700 text-white p-6 flex flex-col gap-6 overflow-y-auto w-80 h-full ${className}`}
     >
       <div className="flex items-center gap-3 mb-2">
         <div className="bg-blue-600 p-2 rounded-lg">
@@ -183,21 +183,6 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ className }) => {
             }
             className="w-full h-1 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-500"
           />
-        </div>
-      </div>
-
-      <div className="mt-auto pt-6 border-t border-slate-800">
-        <div className="p-3 bg-slate-800 rounded-lg border border-slate-700/50">
-          <p className="text-xs text-slate-400 mb-1">System Status</p>
-          <div className="flex items-center gap-2">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-            </span>
-            <span className="text-sm font-medium text-emerald-400">
-              Operational
-            </span>
-          </div>
         </div>
       </div>
     </div>
