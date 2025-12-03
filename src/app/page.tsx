@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/store";
 import { toggleSidebar, selectNode } from "@/store/slices/uiSlice";
 import { useSimulation } from "@/hooks/useSimulation";
-import GlobeWrapper from "@/components/GlobeWrapper";
+import GlobeWrapper from "@/components/globe/GlobeWrapper";
 import ControlPanel from "@/components/ControlPanel";
 import StatsPanel from "@/components/StatsPanel";
 import Legend from "@/components/Legend";

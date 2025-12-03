@@ -1,5 +1,5 @@
-import { Badge } from "../ui/badge";
-import { Button } from "../ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { MapPin } from "lucide-react";
 
 export default function NodeHeader({ node, onClose }: any) {

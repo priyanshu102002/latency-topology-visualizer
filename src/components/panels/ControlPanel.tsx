@@ -1,15 +1,15 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { RootState, AppDispatch } from "../../store";
-import { updateFilter, toggleProvider } from "../../store/slices/uiSlice";
-import { CloudProvider } from "../../types";
+import { RootState, AppDispatch } from "@/store";
+import { updateFilter, toggleProvider } from "@/store/slices/uiSlice";
+import { CloudProvider } from "@/types";
 
-import SearchBox from "../SearchBox";
-import LayerToggles from "./LayerToggles";
-import VisualizationToggles from "./VisualizationToggles";
-import ProviderFilter from "./ProviderFilter";
-import LatencySlider from "./LatencySlider";
-import StatusFooter from "./StatusFooter";
+import SearchBox from "@/components/SearchBox";
+import LayerToggles from "@/components/panels/LayerToggles";
+import VisualizationToggles from "@/components/panels/VisualizationToggles";
+import ProviderFilter from "@/components/panels/ProviderFilter";
+import LatencySlider from "@/components/panels/LatencySlider";
+import StatusFooter from "@/components/panels/StatusFooter";
 
 interface ControlPanelProps {
   className?: string;

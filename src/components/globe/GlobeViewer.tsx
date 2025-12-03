@@ -8,7 +8,7 @@ import React, {
   useCallback,
 } from "react";
 import Globe, { GlobeMethods } from "react-globe.gl";
-import { GeoNode, CloudProvider, NodeType } from "../types";
+import { GeoNode, CloudProvider, NodeType } from "@/types";
 import {
   PROVIDER_COLORS,
   GLOBE_IMAGE_URL,

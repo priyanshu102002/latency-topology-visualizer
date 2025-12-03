@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../../store";
-import { selectNode } from "../../store/slices/uiSlice";
-import NodeHeader from "./NodeHeader";
-import ClientLatencyCard from "./ClientLatencyCard";
-import KeyMetrics from "./KeyMetrics";
-import LatencyHistory from "./LatencyHistory";
-import ConnectionList from "./ConnectionList";
+import { RootState } from "@/store";
+import { selectNode } from "@/store/slices/uiSlice";
+import NodeHeader from "@/components/panels/NodeHeader";
+import ClientLatencyCard from "@/components/panels/ClientLatencyCard";
+import KeyMetrics from "@/components/panels/KeyMetrics";
+import LatencyHistory from "@/components/panels/LatencyHistory";
+import ConnectionList from "@/components/panels/ConnectionList";
 
 
 interface StatsPanelProps {

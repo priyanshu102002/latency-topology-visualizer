@@ -30,7 +30,6 @@ const StatsPanel: React.FC<StatsPanelProps> = ({
   onClose,
 }) => {
   const showHistorical = useSelector((state: RootState) => state.ui.filters.showHistorical);
-  const theme = useSelector((state: RootState) => state.ui.theme);
   const [timeRange, setTimeRange] = useState("1h");
 
   const connectedLinks = useMemo(() => {
@@ -250,19 +249,19 @@ const StatsPanel: React.FC<StatsPanelProps> = ({
                 <LineChart data={chartData}>
                   <CartesianGrid
                     strokeDasharray="3 3"
-                    stroke={theme === 'dark' ? "#334155" : "#e2e8f0"}
+                    stroke={"#334155"}
                     vertical={false}
                   />
                   <XAxis
                     dataKey="time"
-                    stroke={theme === 'dark' ? "#64748b" : "#94a3b8"}
+                    stroke={"#64748b"}
                     fontSize={10}
                     axisLine={false}
                     tickLine={false}
                     minTickGap={20}
                   />
                   <YAxis
-                    stroke={theme === 'dark' ? "#64748b" : "#94a3b8"}
+                    stroke={"#64748b"}
                     fontSize={10}
                     axisLine={false}
                     tickLine={false}
@@ -271,9 +270,9 @@ const StatsPanel: React.FC<StatsPanelProps> = ({
 
                   <Tooltip
                     contentStyle={{
-                      background: theme === 'dark' ? "#1e293b" : "rgb(255 255 255 / 0.95)",
-                      borderColor: theme === 'dark' ? "#334155" : "rgb(203 213 225)",
-                      color: theme === 'dark' ? "#fff" : "rgb(15 23 42)",
+                      background: "#1e293b",
+                      borderColor: "#334155",
+                      color: "#fff",
                       fontSize: "12px",
                     }}
                     itemStyle={{ color: "#3b82f6" }}

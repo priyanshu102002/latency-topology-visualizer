@@ -1,5 +1,5 @@
 import { Filter } from "lucide-react";
-import { Slider } from "../ui/slider";
+import { Slider } from "@/components/ui/slider";
 
 export default function LatencySlider({ maxLatency, onChange }: any) {
   return (

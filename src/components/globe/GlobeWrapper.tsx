@@ -3,10 +3,10 @@
 import React, { useMemo, useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../store";
-import { selectNode } from "../store/slices/uiSlice";
+import { RootState } from "@/store";
+import { selectNode } from "@/store/slices/uiSlice";
 
-const GlobeViewer = dynamic(() => import("./GlobeViewer"), {
+const GlobeViewer = dynamic(() => import("@/components/globe/GlobeViewer"), {
   ssr: false,
 });
 

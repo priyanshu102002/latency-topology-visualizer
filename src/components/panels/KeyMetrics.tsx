@@ -1,4 +1,4 @@
-import { Card, CardContent } from "../ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Globe, Clock } from "lucide-react";
 
 export default function KeyMetrics({ meshLatency, avgLatency }: any) {

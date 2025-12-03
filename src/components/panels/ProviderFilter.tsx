@@ -1,7 +1,7 @@
-import { Button } from "../ui/button";
-import { Badge } from "../ui/badge";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { PROVIDER_COLORS } from "@/data/constants";
-import { CloudProvider } from "../../types";
+import { CloudProvider } from "@/types";
 
 export default function ProviderFilter({
   providers,

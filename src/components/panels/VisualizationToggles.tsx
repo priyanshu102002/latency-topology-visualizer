@@ -1,5 +1,5 @@
 import { Activity, History } from 'lucide-react';
-import { Switch } from '../ui/switch';
+import { Switch } from '@/components/ui/switch';
 
 export default function VisualizationToggles({
   showRealTime,
