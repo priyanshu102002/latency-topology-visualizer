@@ -50,4 +50,4 @@ export const networkApi = createApi({
   }),
 });
 
-export const { usePingNodeQuery, useLazyPingNodeQuery } = networkApi;
+export const { useLazyPingNodeQuery } = networkApi;

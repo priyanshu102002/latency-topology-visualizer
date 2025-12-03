@@ -51,7 +51,6 @@ export interface FilterState {
   showRealTime: boolean;
   showHistorical: boolean;
   providers: Record<CloudProvider, boolean>;
-  minLatency: number;
   maxLatency: number;
   searchQuery: string;
 }
@@ -60,4 +59,9 @@ export interface TopologyState {
   nodes: GeoNode[];
   links: LatencyLink[];
   lastUpdated: number;
+}
+
+export interface ChartDataPoint {
+  time: string;
+  latency: number;
 }

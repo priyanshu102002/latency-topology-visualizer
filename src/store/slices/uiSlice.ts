@@ -21,7 +21,6 @@ const initialState: UiState = {
       [CloudProvider.AZURE]: true,
       [CloudProvider.PRIVATE]: true,
     },
-    minLatency: 0,
     maxLatency: 500,
     searchQuery: "",
   },

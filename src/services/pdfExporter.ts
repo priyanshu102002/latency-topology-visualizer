@@ -1,10 +1,5 @@
 import jsPDF from "jspdf";
-import { GeoNode, LatencyLink } from "@/types";
-
-interface ChartDataPoint {
-  time: string;
-  latency: number;
-}
+import { GeoNode, LatencyLink, ChartDataPoint } from "@/types";
 
 interface ExportData {
   selectedNode: GeoNode;

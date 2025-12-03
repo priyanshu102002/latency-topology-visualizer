@@ -9,11 +9,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-
-interface ChartDataPoint {
-  time: string;
-  latency: number;
-}
+import { ChartDataPoint } from "@/types";
 
 interface LatencyHistoryChartProps {
   showHistorical: boolean;
