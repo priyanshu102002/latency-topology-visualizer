@@ -37,7 +37,7 @@ export const useSimulation = () => {
             const result = await triggerPing(node.endpoint).unwrap();
             dispatch(updateNodeLatency({ nodeId: node.id, latency: result }));
           } catch (e) {
-            // Silently fail - node ping failed
+            console.log("Error", e)
           }
         }
       });

@@ -1,6 +1,6 @@
 import React from "react";
 import { Laptop } from "lucide-react";
-import { getClientLatencyColor } from "../../lib/latencyUtils";
+import { getClientLatencyColor } from "@/lib/latencyUtils";
 
 interface ClientLatencyCardProps {
   latency: number;

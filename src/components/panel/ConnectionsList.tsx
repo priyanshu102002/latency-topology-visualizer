@@ -1,6 +1,6 @@
 import React from "react";
 import { LatencyLink } from "@/types";
-import { getLatencyColor } from "../../lib/latencyUtils";
+import { getLatencyColor } from "@/lib/latencyUtils";
 
 interface ConnectionsListProps {
   connections: LatencyLink[];

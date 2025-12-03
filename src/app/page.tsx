@@ -8,6 +8,7 @@ import GlobeWrapper from "@/components/globe/GlobeWrapper";
 import ControlPanel from "@/components/panel/ControlPanel";
 import StatsPanel from "@/components/panel/StatsPanel";
 import Legend from "@/components/panel/Legend";
+import { Menu, X } from "lucide-react";
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
@@ -39,9 +40,9 @@ const App: React.FC = () => {
 
         <button
           onClick={() => dispatch(toggleSidebar())}
-          className="pointer-events-auto absolute top-4 left-4 z-50 p-2 bg-slate-200  text-slate-900  rounded-md hover:bg-slate-300 md:hidden shadow-lg"
+          className="pointer-events-auto absolute top-4 left-4 z-50 border-2"
         >
-          {isSidebarOpen ? "Close" : "Menu"}
+          {isSidebarOpen ? <X /> : <Menu />}
         </button>
 
         <div className="flex-1 relative"></div>

@@ -12,30 +12,29 @@ const customPingBaseQuery = async ({
       cache: 'no-store',
     });
 
-    if (!res.ok) {
-      return {
-        error: {
-          status: res.status,
-          data: 'Latency API request failed',
-        },
-      };
-    }
-
     const json: any = await res.json();
     const latency = typeof json?.latencyMs === 'number' ? json.latencyMs : -1;
 
-    if (latency < 0) {
-      return {
-        error: {
-          status: 'CUSTOM_ERROR',
-          error: 'Latency value missing or invalid',
-        },
-      };
+    // Even if the response is not OK, if we got a latency measurement, return it
+    // This allows us to track latency even for failed requests
+    if (latency >= 0) {
+      return { data: Math.round(latency) };
     }
 
-    return { data: Math.round(latency) };
-  } catch {
-    return { error: { status: 'CUSTOM_ERROR', error: 'Ping failed' } };
+    // If no valid latency was returned, return an error
+    return {
+      error: {
+        status: res.status || 'CUSTOM_ERROR',
+        data: json?.error || 'Latency value missing or invalid',
+      },
+    };
+  } catch (error: any) {
+    return {
+      error: {
+        status: 'CUSTOM_ERROR',
+        error: error.message || 'Ping failed',
+      },
+    };
   }
 };
 

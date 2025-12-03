@@ -12,11 +12,10 @@ import { LatencyHistoryChart } from "./LatencyHistoryChart";
 import { ConnectionsList } from "./ConnectionsList";
 import { EmptyState } from "./EmptyState";
 
-// Constants
 const TIME_RANGES = {
   ONE_HOUR: "1h",
   TWENTY_FOUR_HOURS: "24h",
-  SEVEN_DAYS: "7d",
+  SEVEN_DAYS: "7d"
 } as const;
 
 const CHART_DATA_LIMITS = {
