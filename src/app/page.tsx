@@ -4,10 +4,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/store";
 import { toggleSidebar, selectNode } from "@/store/slices/uiSlice";
 import { useSimulation } from "@/hooks/useSimulation";
-import GlobeWrapper from "@/app/globe/GlobeWrapper";
-import ControlPanel from "@/app/panel/ControlPanel";
-import StatsPanel from "@/app/panel/StatsPanel";
-import Legend from "@/app/panel/Legend";
+import GlobeWrapper from "@/components/globe/GlobeWrapper";
+import ControlPanel from "@/components/panel/ControlPanel";
+import StatsPanel from "@/components/panel/StatsPanel";
+import Legend from "@/components/panel/Legend";
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
