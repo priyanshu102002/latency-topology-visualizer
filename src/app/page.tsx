@@ -40,7 +40,7 @@ const App: React.FC = () => {
 
         <button
           onClick={() => dispatch(toggleSidebar())}
-          className="pointer-events-auto absolute top-4 left-4 z-50 border-2"
+          className="pointer-events-auto absolute top-4 left-4 z-50 border-2 md:hidden shadow-lg"
         >
           {isSidebarOpen ? <X /> : <Menu />}
         </button>
