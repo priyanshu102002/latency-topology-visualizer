@@ -41,11 +41,10 @@ const customPingBaseQuery = async ({
 
 export const networkApi = createApi({
   reducerPath: 'networkApi',
-  baseQuery: fetchBaseQuery({ baseUrl: '/' }), // Placeholder, unused due to queryFn
+  baseQuery: fetchBaseQuery({ baseUrl: '/' }),
   endpoints: (builder) => ({
     pingNode: builder.query<number, string>({
       queryFn: async (url) => customPingBaseQuery({ url }),
-      // Don't cache pings for too long, we want freshness
       keepUnusedDataFor: 5, 
     }),
   }),

@@ -20,21 +20,3 @@ export const pingNode = async (url: string): Promise<number> => {
     return -1;
   }
 };
-
-export const getBitcoinPrice = async (): Promise<string | null> => {
-  try {
-    const res = await fetch('https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT');
-    if (res.ok) {
-      const data = await res.json();
-      return parseFloat(data.price).toLocaleString('en-US', { 
-        style: 'currency', 
-        currency: 'USD',
-        minimumFractionDigits: 2
-      });
-    }
-    return null;
-  } catch (e) {
-    console.error("Failed to fetch BTC price", e);
-    return null;
-  }
-};

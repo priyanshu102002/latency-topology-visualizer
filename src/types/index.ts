@@ -55,3 +55,9 @@ export interface FilterState {
   maxLatency: number;
   searchQuery: string;
 }
+
+export interface TopologyState {
+  nodes: GeoNode[];
+  links: LatencyLink[];
+  lastUpdated: number;
+}

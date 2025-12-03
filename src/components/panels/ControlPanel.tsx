@@ -1,14 +1,9 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "../../store";
-import {
-  updateFilter,
-  toggleProvider,
-  setTheme,
-} from "../../store/slices/uiSlice";
+import { updateFilter, toggleProvider } from "../../store/slices/uiSlice";
 import { CloudProvider } from "../../types";
 
-import PanelHeader from "./PanelHeader";
 import SearchBox from "../SearchBox";
 import LayerToggles from "./LayerToggles";
 import VisualizationToggles from "./VisualizationToggles";
@@ -24,17 +19,11 @@ const ControlPanel: React.FC<ControlPanelProps> = ({ className }) => {
   const dispatch: AppDispatch = useDispatch();
 
   const filters = useSelector((state: RootState) => state.ui.filters);
-  const theme = useSelector((state: RootState) => state.ui.theme);
-
-  const handleThemeToggle = () =>
-    dispatch(setTheme(theme === "dark" ? "light" : "dark"));
 
   return (
     <div
       className={`bg-white/90 dark:bg-slate-900/90 backdrop-blur-lg border-r border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white p-6 flex flex-col gap-6 overflow-y-auto w-80 h-full ${className}`}
     >
-      <PanelHeader theme={theme} onToggleTheme={handleThemeToggle} />
-
       <SearchBox
         value={filters.searchQuery}
         onChange={(val: string) => dispatch(updateFilter({ searchQuery: val }))}

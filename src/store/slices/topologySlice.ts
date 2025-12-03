@@ -1,13 +1,10 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { GeoNode, LatencyLink } from '@/types';
-import { NODES } from '@/data/constants';
-import { generateInitialLinks, updateLatencies } from '../../services/latencySimulator';
-
-interface TopologyState {
-  nodes: GeoNode[];
-  links: LatencyLink[];
-  lastUpdated: number;
-}
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { TopologyState } from "@/types";
+import { NODES } from "@/data/constants";
+import {
+  generateInitialLinks,
+  updateLatencies,
+} from "../../services/latencySimulator";
 
 const initialState: TopologyState = {
   nodes: NODES,
@@ -16,22 +13,25 @@ const initialState: TopologyState = {
 };
 
 export const topologySlice = createSlice({
-  name: 'topology',
+  name: "topology",
   initialState,
   reducers: {
     tickSimulation: (state) => {
       state.links = updateLatencies(state.links);
       state.lastUpdated = Date.now();
     },
-    updateNodeLatency: (state, action: PayloadAction<{ nodeId: string; latency: number }>) => {
+    updateNodeLatency: (
+      state,
+      action: PayloadAction<{ nodeId: string; latency: number }>
+    ) => {
       const { nodeId, latency } = action.payload;
       const nodeIndex = state.nodes.findIndex((n) => n.id === nodeId);
       if (nodeIndex !== -1) {
         state.nodes[nodeIndex].clientLatency = latency;
-        
-        if (latency > 1000) state.nodes[nodeIndex].status = 'maintenance';
-        else if (latency > 500) state.nodes[nodeIndex].status = 'degraded';
-        else state.nodes[nodeIndex].status = 'operational';
+
+        if (latency > 1000) state.nodes[nodeIndex].status = "maintenance";
+        else if (latency > 500) state.nodes[nodeIndex].status = "degraded";
+        else state.nodes[nodeIndex].status = "operational";
       }
     },
   },

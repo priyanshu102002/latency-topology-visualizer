@@ -1,18 +1,15 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CloudProvider, FilterState } from '@/types';
-
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { CloudProvider, FilterState } from "@/types";
 
 interface UiState {
   isSidebarOpen: boolean;
   selectedNodeId: string | null;
   filters: FilterState;
-  theme: 'dark' | 'light';
 }
 
 const initialState: UiState = {
   isSidebarOpen: true,
   selectedNodeId: null,
-  theme: 'dark',
   filters: {
     showExchanges: true,
     showRegions: true,
@@ -26,12 +23,12 @@ const initialState: UiState = {
     },
     minLatency: 0,
     maxLatency: 500,
-    searchQuery: '',
+    searchQuery: "",
   },
 };
 
 export const uiSlice = createSlice({
-  name: 'ui',
+  name: "ui",
   initialState,
   reducers: {
     toggleSidebar: (state) => {
@@ -40,17 +37,16 @@ export const uiSlice = createSlice({
     selectNode: (state, action: PayloadAction<string | null>) => {
       state.selectedNodeId = action.payload;
     },
-    setTheme: (state, action: PayloadAction<'dark' | 'light'>) => {
-      state.theme = action.payload;
-    },
     updateFilter: (state, action: PayloadAction<Partial<FilterState>>) => {
       state.filters = { ...state.filters, ...action.payload };
     },
     toggleProvider: (state, action: PayloadAction<CloudProvider>) => {
-      state.filters.providers[action.payload] = !state.filters.providers[action.payload];
+      state.filters.providers[action.payload] =
+        !state.filters.providers[action.payload];
     },
   },
 });
 
-export const { toggleSidebar, selectNode, updateFilter, toggleProvider, setTheme } = uiSlice.actions;
+export const { toggleSidebar, selectNode, updateFilter, toggleProvider } =
+  uiSlice.actions;
 export default uiSlice.reducer;

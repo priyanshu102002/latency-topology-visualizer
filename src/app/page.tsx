@@ -14,7 +14,7 @@ const App: React.FC = () => {
 
   useSimulation();
 
-  const { isSidebarOpen, selectedNodeId, theme } = useSelector(
+  const { isSidebarOpen, selectedNodeId } = useSelector(
     (state: RootState) => state.ui
   );
   const { nodes, links } = useSelector((state: RootState) => state.topology);
