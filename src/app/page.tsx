@@ -5,9 +5,9 @@ import { RootState } from "@/store";
 import { toggleSidebar, selectNode } from "@/store/slices/uiSlice";
 import { useSimulation } from "@/hooks/useSimulation";
 import GlobeWrapper from "@/components/globe/GlobeWrapper";
-import ControlPanel from "@/components/ControlPanel";
-import StatsPanel from "@/components/StatsPanel";
-import Legend from "@/components/Legend";
+import ControlPanel from "@/components/panel/ControlPanel";
+import StatsPanel from "@/components/panel/StatsPanel";
+import Legend from "@/components/panel/Legend";
 
 const App: React.FC = () => {
   const dispatch = useDispatch();

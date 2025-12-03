@@ -3,7 +3,7 @@
 import React, { useMemo, useState, useCallback } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
-import { GeoNode, LatencyLink } from "../types";
+import { GeoNode, LatencyLink } from "../../types";
 import {
   LineChart,
   Line,
