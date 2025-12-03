@@ -112,22 +112,20 @@ const GlobeWrapper: React.FC = () => {
       } else {
         visualLink.latencyMs = link.latencyMs;
         visualLink.status = link.status;
-        visualLink.history = link.history; // assume immutable
+        visualLink.history = link.history; 
       }
 
       activeIds.add(link.id);
       result.push(visualLink);
     });
 
-    // cleanup
     for (const id of visualLinksCache.current.keys()) {
       if (!activeIds.has(id)) visualLinksCache.current.delete(id);
     }
 
     return result;
-  }, [links, stableNodes, filters.maxLatency]); // reduced deps
+  }, [links, stableNodes, filters.maxLatency]); 
 
-  // ---------- NODE CLICK ----------
   const handleNodeClick = (node: any) => {
     dispatch(selectNode(node.id));
   };
