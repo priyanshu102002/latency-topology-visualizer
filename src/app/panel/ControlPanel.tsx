@@ -9,12 +9,12 @@ import {
 } from "@/store/slices/uiSlice";
 import { RootState } from "@/store";
 
-import Header from "@/components/panel/Header";
-import SearchInput from "@/components/panel/SearchInput";
-import LayersSection from "@/components/panel/LayersSection";
-import VisualizationSection from "@/components/panel/VisualizationSection";
-import ProviderSection from "@/components/panel/ProviderSection";
-import LatencyThreshold from "@/components/panel/LatencyThreshold";
+import Header from "@/app/panel/Header";
+import SearchInput from "@/app/panel/SearchInput";
+import LayersSection from "@/app/panel/LayersSection";
+import VisualizationSection from "@/app/panel/VisualizationSection";
+import ProviderSection from "@/app/panel/ProviderSection";
+import LatencyThreshold from "@/app/panel/LatencyThreshold";
 
 interface ControlPanelProps {
   className?: string;
