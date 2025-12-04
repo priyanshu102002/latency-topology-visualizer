@@ -26,6 +26,7 @@ const customPingBaseQuery = async ({
       error: {
         status: res.status || 'CUSTOM_ERROR',
         data: json?.error || 'Latency value missing or invalid',
+        error: json?.error || 'Latency value missing or invalid',
       },
     };
   } catch (error: any) {
