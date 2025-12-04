@@ -103,7 +103,7 @@ export const LatencyHistoryChart: React.FC<LatencyHistoryChartProps> = ({
                 strokeWidth={2}
                 dot={false}
                 activeDot={{ r: 4, fill: "#3b82f6" }}
-                isAnimationActive={false}
+                isAnimationActive={true}
               />
             </LineChart>
           </ResponsiveContainer>

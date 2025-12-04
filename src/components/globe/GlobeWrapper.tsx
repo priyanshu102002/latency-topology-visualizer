@@ -57,10 +57,9 @@ const GlobeWrapper: React.FC = () => {
       let visualNode = visualNodesCache.current.get(node.id);
 
       if (!visualNode) {
-        visualNode = { ...node }; // faster than deep clone
+        visualNode = { ...node }; 
         visualNodesCache.current.set(node.id, visualNode);
       } else {
-        // update only mutable fields
         visualNode.status = node.status;
         visualNode.clientLatency = node.clientLatency;
         visualNode.lat = node.lat;
@@ -71,7 +70,6 @@ const GlobeWrapper: React.FC = () => {
       result.push(visualNode);
     });
 
-    // cleanup
     for (const id of visualNodesCache.current.keys()) {
       if (!activeIds.has(id)) visualNodesCache.current.delete(id);
     }

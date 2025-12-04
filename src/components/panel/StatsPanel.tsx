@@ -11,6 +11,7 @@ import { StatsCards } from "./StatsCards";
 import { LatencyHistoryChart } from "./LatencyHistoryChart";
 import { ConnectionsList } from "./ConnectionsList";
 import { EmptyState } from "./EmptyState";
+import { formatTime } from "@/lib/formatTime";
 
 const TIME_RANGES = {
   ONE_HOUR: "1h",
@@ -22,19 +23,6 @@ const CHART_DATA_LIMITS = {
   [TIME_RANGES.ONE_HOUR]: 20,
   [TIME_RANGES.TWENTY_FOUR_HOURS]: 50,
 } as const;
-
-const formatTime = (timestamp: number, timeRange: string): string => {
-  const date = new Date(timestamp);
-
-  if (timeRange === TIME_RANGES.SEVEN_DAYS) {
-    return date.toLocaleDateString([], { month: "short", day: "numeric" });
-  }
-
-  return date.toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-};
 
 interface StatsPanelProps {
   selectedNode: GeoNode | null;

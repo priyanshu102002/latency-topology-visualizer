@@ -88,8 +88,12 @@ const GlobeViewer: React.FC<GlobeViewerProps> = React.memo(
           ref={globeEl}
           width={width}
           height={height}
+
+          // Core globe assets
           globeImageUrl={GLOBE_IMAGE_URL}
           backgroundImageUrl={BACKGROUND_IMAGE_URL}
+
+          // Nodes
           pointsData={nodes}
           pointLat="lat"
           pointLng="lng"
@@ -99,6 +103,8 @@ const GlobeViewer: React.FC<GlobeViewerProps> = React.memo(
           onPointClick={handlePointClick}
           onPointHover={handlePointHover}
           pointResolution={16}
+
+          // Links
           arcsData={links}
           arcColor={arcColor}
           arcDashLength={0.4}
@@ -107,6 +113,8 @@ const GlobeViewer: React.FC<GlobeViewerProps> = React.memo(
           arcStroke={0.6}
           arcAltitudeAutoScale={0.5}
           labelsData={nodes}
+
+          // Labels
           labelLat="lat"
           labelLng="lng"
           labelText="name"
